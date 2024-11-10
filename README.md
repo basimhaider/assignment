@@ -1,27 +1,36 @@
-# Java Application Deployment to AWS EKS
+# Deploying a Java Application to AWS EKS
 
-This project demonstrates deploying a Java application to AWS Elastic Kubernetes Service (EKS) using GitHub Actions and Terraform.
+This repository demonstrates deploying a Java application to AWS Elastic Kubernetes Service (EKS) using:
+- Terraform for Infrastructure as Code (IaC)
+- Helm for Kubernetes Deployment
+- GitHub Actions for CI/CD
 
 ## Features
-- **Dockerized Java application** built using Spring Boot.
-- **Helm chart** for Kubernetes deployment.
-- **Terraform** for AWS infrastructure provisioning.
-- **GitHub Actions** for CI/CD pipeline.
+- Dockerized Java application.
+- Production-ready Kubernetes Helm chart.
+- Secure role-based AWS authentication for deployment.
 
-## Steps to Run
+## Prerequisites
+1. AWS CLI, Terraform, Helm, and kubectl installed locally.
+2. AWS IAM Role configured for GitHub Actions.
 
-1. Build the Docker image:
+## Setup
+1. Initialize Terraform:
    ```bash
-   docker build -t my-java-app .
+   cd terraform
+   terraform init
+   terraform apply
    ```
 
-2. Push the Docker image to your registry.
-
-3. Deploy to Kubernetes using Helm:
+2. Push Docker image and deploy:
    ```bash
+   docker build -t <image> .
    helm install my-java-app ./helm
    ```
 
-## Prerequisites
-- AWS CLI, kubectl, and Helm installed locally.
-- GitHub repository secrets configured for CI/CD.
+## CI/CD Pipeline
+The GitHub Actions workflow automates:
+- Building the Docker image.
+- Pushing the image to AWS ECR.
+- Deploying the application to EKS using Helm.
+
